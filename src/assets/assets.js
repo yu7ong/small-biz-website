@@ -1,0 +1,48 @@
+import PlaceholderImg from './Placeholder.JPG';
+
+export const products = [
+  {
+    _id: "stk001",
+    name: "Sticker Pack",
+    description: "Vinyl water proof stickers",
+    price: 6,
+    image: [PlaceholderImg], 
+    category: "Sticker",
+    sizes: [],
+    date: 1716621000001,
+    bestseller: true,
+  },
+  {
+    _id: "nkl001",
+    name: "Pearl Daisy Necklace",
+    description: "A dainty handmade necklace with faux pearls and pastel daisy charms.",
+    price: 18,
+    image: [PlaceholderImg],
+    category: "Necklace",
+    sizes: [],
+    date: 1716621000002,
+    bestseller: false,
+  },
+  {
+    _id: "prt001",
+    name: "Print",
+    description: "Shiny A5 matte print.",
+    price: 12,
+    image: [PlaceholderImg],
+    category: "Print",
+    sizes: ["A5"],
+    date: 1716621000003,
+    bestseller: true,
+  },
+  {
+    _id: "bch001",
+    name: "Bag Charm",
+    description: "Cute pillow bag charm",
+    price: 9,
+    image: [PlaceholderImg],
+    category: "Accessories",
+    sizes: [],
+    date: 1716621000004,
+    bestseller: true,
+  },
+];
