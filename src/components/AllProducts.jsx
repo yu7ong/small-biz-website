@@ -9,6 +9,7 @@ const AllProducts = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -34,10 +35,10 @@ const AllProducts = () => {
 
   useEffect(() => 
     applyFilter()
-  , [category])
+  , [category, products])
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t pl-4 sm:pl-10">
+    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t border-transparent pl-4 sm:pl-10">
       {/*filter options*/}
       <div className="min-w-60">
         <p
@@ -79,7 +80,7 @@ const AllProducts = () => {
         {/*Map Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 fap-y-6">
           {filterProducts.map((item, index) => (
-            <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image}/>
+            <ProductItem key={index} name={item.name} id={item._id} price={item.price} image={item.image} stock={item.stock}/>
           ))}
         </div>
       </div>

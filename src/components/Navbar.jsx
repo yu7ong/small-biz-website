@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -6,11 +6,13 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../utils/motion";
 import Logo from "../assets/Logo.PNG";
 import { IoCartOutline } from "react-icons/io5";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const navigate = useNavigate();
+  const {getCartCount} = useContext(ShopContext)
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -91,7 +93,7 @@ const Navbar = () => {
           <div className="relative">
             <IoCartOutline />
             <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-[#38342c] text-white aspect-square rounded-full text-[8px]">
-              10
+              {getCartCount()}
             </p>
           </div>
         </motion.button>

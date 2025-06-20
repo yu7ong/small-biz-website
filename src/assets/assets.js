@@ -1,16 +1,18 @@
-import PlaceholderImg from './Placeholder.JPG';
+import PlaceholderImg from './Placeholder.PNG';
+import Stk1 from './Stk1.PNG';
+import Stk2 from './Stk2.PNG';
+import Stk3 from './Stk3.PNG';
 
 export const products = [
   {
     _id: "stk001",
     name: "Sticker Pack",
     description: "Vinyl water proof stickers",
-    price: 6,
-    image: [PlaceholderImg], 
+    price: 2,
+    image: [PlaceholderImg, Stk1, Stk2, Stk3], 
     category: "Sticker",
-    sizes: [],
-    date: 1716621000001,
-    bestseller: true,
+    sizes: ["A", "B", "C", "D"],
+    stock: 5,
   },
   {
     _id: "nkl001",
@@ -20,8 +22,7 @@ export const products = [
     image: [PlaceholderImg],
     category: "Necklace",
     sizes: [],
-    date: 1716621000002,
-    bestseller: false,
+    stock: 4,
   },
   {
     _id: "prt001",
@@ -31,8 +32,7 @@ export const products = [
     image: [PlaceholderImg],
     category: "Print",
     sizes: ["A5"],
-    date: 1716621000003,
-    bestseller: true,
+    stock: 10,
   },
   {
     _id: "bch001",
@@ -42,7 +42,6 @@ export const products = [
     image: [PlaceholderImg],
     category: "Accessories",
     sizes: [],
-    date: 1716621000004,
-    bestseller: true,
+    stock: 0,
   },
 ];
