@@ -17,8 +17,13 @@ connectDB();
 connectCloudinary();
 
 // middlewares
-app.use(express.json()); // Have Express to automatically parse incoming JSON request bodies
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, //allow sending of cookies
+  })
+);
+app.use(express.json());
 app.use(
   session({
     name: process.env.SESS_NAME,
@@ -32,16 +37,28 @@ app.use(
     }),
     cookie: {
       httpOnly: true, // Prevents JS from accessing the cookie
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Settings might be changed during production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Settings might be changed during production
       secure: process.env.NODE_ENV === "production",
       maxAge: parseInt(process.env.SESS_LIFETIME), // Controls client side expiration
     },
   })
 );
 
+// Debug middleware to log session info
+app.use((req, res, next) => {
+  console.log(`🔍 ${req.method} ${req.path}`);
+  console.log('Session ID:', req.sessionID);
+  console.log('Session exists:', !!req.session);
+  if (req.session) {
+    console.log('Session userId:', req.session.userId);
+    console.log('Cart items count:', req.session.cart ? req.session.cart.length : 0);
+  }
+  next();
+});
+
 // api endpoints
 app.use("/api/product", productRouter);
-app.use('/api/session', sessionRouter);
+app.use("/api/session", sessionRouter);
 
 app.get("/", (req, res) => {
   res.send("API Working");

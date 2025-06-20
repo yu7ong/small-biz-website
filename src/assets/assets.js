@@ -13,7 +13,6 @@ export const products = [
     category: "Sticker",
     sizes: ["A", "B", "C", "D"],
     stock: 5,
-    bestseller: true,
   },
   {
     _id: "nkl001",
@@ -24,7 +23,6 @@ export const products = [
     category: "Necklace",
     sizes: [],
     stock: 4,
-    bestseller: false,
   },
   {
     _id: "prt001",
@@ -35,7 +33,6 @@ export const products = [
     category: "Print",
     sizes: ["A5"],
     stock: 10,
-    bestseller: true,
   },
   {
     _id: "bch001",
@@ -46,6 +43,5 @@ export const products = [
     category: "Accessories",
     sizes: [],
     stock: 0,
-    bestseller: true,
   },
 ];
