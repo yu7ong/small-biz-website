@@ -7,6 +7,7 @@ import productRouter from "./routes/productRoutes.js";
 import sessionRouter from "./routes/sessionRoutes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import productRouterInternal from "./routes/productRoutesInternal.js";
 
 // App config
 
@@ -58,6 +59,7 @@ app.use((req, res, next) => {
 
 // api endpoints
 app.use("/api/product", productRouter);
+//app.use("/api/product/internal", productRouterInternal);
 app.use("/api/session", sessionRouter);
 
 app.get("/", (req, res) => {
