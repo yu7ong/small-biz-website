@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 
 // api endpoints
 app.use("/api/product", productRouter);
-//app.use("/api/product/internal", productRouterInternal);
+app.use("/api/product/internal", productRouterInternal);
 app.use("/api/session", sessionRouter);
 
 app.get("/", (req, res) => {
