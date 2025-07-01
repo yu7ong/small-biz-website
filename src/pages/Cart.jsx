@@ -4,7 +4,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import CartTotal from '../components/CartTotal';
 
 function Cart() {
-  const {products, cartItems, updateQuantity} = useContext(ShopContext); 
+  const {products, cartItems, updateQuantity, navigate} = useContext(ShopContext); 
 
   const [cartData, setCartData] = useState([]);
 
@@ -59,6 +59,9 @@ function Cart() {
           <div className='flex justify-end py-20 mx-10'> 
             <div className='w-full sm:w-[450px]'> 
               <CartTotal />
+              <div className='w-full text-end mt-2'> 
+                <button onClick={() => navigate('/place-order')}className='px-8 py-3 text-sm ribeye-regular bg-[#38342c] text-[#fffcf6] active:bg-[#726f68]'> PROCEED TO CHECKOUT </button>
+              </div>
             </div>
           </div>
         </div>

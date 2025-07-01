@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
@@ -11,6 +12,7 @@ export const ShopContextProvider = (props) => {
   const deliveryFee = 10;
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate(); 
 
 
   const getProductData = async () => {
@@ -181,6 +183,7 @@ export const ShopContextProvider = (props) => {
         getCartCount,
         updateQuantity,
         getCartAmount,
+        navigate,
       }}
     >
       {props.children}
