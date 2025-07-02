@@ -9,22 +9,23 @@ const placeOrder = async (req, res) => {
 
   try {
     await dbSession.startTransaction();
-
     // Validate request
     validateRequestInputs(req.body, req.session);
 
     //Extract request inputs
     const { email, name, details } = req.body;
-    const evidenceImg = req.files.evidenceImg;
+    const evidenceImg = req.file;
+    /*
     const result = await cloudinary.uploader.upload(evidenceImg.path, {
       folder: "payment_evidence",
       resource_type: "image",
     });
     const evidenceImgUrl = result.secure_url;
+    */
 
     //Validate products and variants
-    const validatedProducts = validateCart(req, dbSession)
-    res.json({ success: true, validatedProducts});
+    const validatedProducts = await validateCart(req, dbSession)
+    res.json({ success: true, validatedProducts });
 
     console.log(validatedProducts)
   } catch (error) {
@@ -33,7 +34,7 @@ const placeOrder = async (req, res) => {
 };
 
 const validateRequestInputs = (body, session) => {
-  const { email, name, details, collectionDate } = body;
+  const { email, name, details } = body;
 
   if (!session.cart || session.cart.length === 0) {
     throw { status: 400, error: "Cart is empty." };
@@ -77,9 +78,9 @@ const validateCart = async (req, dbSession) => {
   productsBought.forEach((product) => {
     productMap.set(product._id.toString(), product);
     product.variants.forEach((variant) => {
-      variantMap.set(variant._id.toString(), {
+      variantMap.set(variant._id.toString(),
         variant
-      });
+      );
     });
   });
 
@@ -99,7 +100,7 @@ const validateCart = async (req, dbSession) => {
       }
       const itemTotal = product.price * quantity;
       totalAmount += itemTotal;
-      
+
       validatedItems.push({
         productId: product._id,
         variantId: variant._id,

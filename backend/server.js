@@ -5,10 +5,10 @@ import connectDB from "./config/MongoDB.js";
 import connectCloudinary from "./config/cloudinary.js";
 import productRouter from "./routes/productRoutes.js";
 import sessionRouter from "./routes/sessionRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import productRouterInternal from "./routes/productRoutesInternal.js";
-import orderRouter from "./routes/orderRoutes.js";
 
 // App config
 
@@ -48,7 +48,7 @@ app.use(
 
 // Debug middleware to log session info
 app.use((req, res, next) => {
-  console.log(`🔍 ${req.method} ${req.path}`);
+  console.log(` ${req.method} ${req.path}`);
   console.log('Session ID:', req.sessionID);
   console.log('Session exists:', !!req.session);
   if (req.session) {
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 app.use("/api/product", productRouter);
 // app.use("/api/product/internal", productRouterInternal);
 app.use("/api/session", sessionRouter);
-app.use("api/order", orderRouter);
+app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("API Working");
