@@ -9,6 +9,7 @@ import orderRouter from "./routes/orderRoutes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import productRouterInternal from "./routes/productRoutesInternal.js";
+import { testEmailConnection } from "./config/email.js";
 
 // App config
 
@@ -17,6 +18,7 @@ app.disable("x-powered-by"); // Disables the X-Powered-By HTTP header that Expre
 const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
+testEmailConnection();
 
 // middlewares
 app.use(

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../models/productModel.js";
+import { sendEmail } from "../config/email.js";
 
 const placeOrder = async (req, res) => {
   //create a mongoDB transaction
@@ -15,19 +16,37 @@ const placeOrder = async (req, res) => {
     //Extract request inputs
     const { email, name, details } = req.body;
     const evidenceImg = req.file;
-    /*
+
     const result = await cloudinary.uploader.upload(evidenceImg.path, {
       folder: "payment_evidence",
       resource_type: "image",
     });
     const evidenceImgUrl = result.secure_url;
-    */
 
     //Validate products and variants
-    const validatedProducts = await validateCart(req, dbSession)
-    res.json({ success: true, validatedProducts });
+    const { validatedItems, totalAmount } = await validateCart(req, dbSession)
+    const orderId = 'orderId50802072025'
 
-    console.log(validatedProducts)
+    const emailData = {
+      orderId,
+      customerName: name,
+      email: email,
+      items: validatedItems,
+      totalAmount,
+      details: details || "", 
+      paymentImg: evidenceImgUrl
+    };
+
+    await sendEmail(emailData);
+
+    await dbSession.commitTransaction();
+
+    res.json({
+      success: true,
+      message: "Order placed successfully!",
+      orderId,
+      totalAmount
+    });
   } catch (error) {
     console.log(error);
   }
@@ -102,15 +121,14 @@ const validateCart = async (req, dbSession) => {
       totalAmount += itemTotal;
 
       validatedItems.push({
-        productId: product._id,
-        variantId: variant._id,
+        productName: product.name,
+        variantName: variant.name,
         quantity: quantity,
         pricePerUnit: product.price,
         totalPrice: itemTotal
       });
     }
   }
-
   return {
     validatedItems,
     totalAmount
