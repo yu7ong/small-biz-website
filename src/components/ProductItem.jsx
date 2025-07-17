@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({ id, image, name, price, stock }) => {
+const ProductItem = ({ id, image, name, price, variants }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isOutOfStock = stock === 0;
+  const isOutOfStock = variants.every(v => v.stock === 0);
 
   return (
     <Link className="text-[#38342c] cursor-pointer" to={`/product/${id}`}>
@@ -18,7 +18,7 @@ const ProductItem = ({ id, image, name, price, stock }) => {
               ? "filter greyscale brightness-75 scale-100"
               : "hover:scale-110 group-hover:brightness-110"
           }`}
-          src={image[0]}
+          src={image}
           alt={name}
         />
         {isOutOfStock && (

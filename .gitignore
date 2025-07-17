@@ -29,3 +29,4 @@ frontend/.env
 backend/.env
 
 /backend/controllers/productControllerInternal.js
+/backend/routes/productRoutesInternal.js

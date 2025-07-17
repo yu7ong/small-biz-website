@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
@@ -11,6 +12,8 @@ export const ShopContextProvider = (props) => {
   const deliveryFee = 10;
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate(); 
+
 
   const getProductData = async () => {
     try {
@@ -47,32 +50,30 @@ export const ShopContextProvider = (props) => {
     }
   };
 
-  const addToCart = async (itemId, itemName, option, quantity) => {
+  const addToCart = async (productId, productName, variantId, variantName, quantity) => {
     let cartData = structuredClone(cartItems);
 
-    if (cartData[itemId]) {
-      if (cartData[itemId][option]) {
-        cartData[itemId][option] += quantity;
+    if (cartData[productId]) {
+      if (cartData[productId][variantId]) {
+        cartData[productId][variantId] += quantity;
       } else {
-        cartData[itemId][option] = quantity;
+        cartData[productId][variantId] = quantity;
       }
     } else {
-      cartData[itemId] = {};
-      cartData[itemId][option] = quantity;
+      cartData[productId] = {};
+      cartData[productId][variantId] = quantity;
     }
 
     try {
       await axios.post("http://localhost:4000/api/session/cart", {
-        productId: itemId,
-        variantId: option,
-        quantity: cartData[itemId][option],
+        productId: productId,
+        variantId: variantId,
+        quantity: cartData[productId][variantId],
       });
       setCartItems(cartData);
 
-      const productData = products.find((product) => product._id === itemId);
-
       toast.success(
-        `Added ${itemName}, ${productData.sizes[option]} into cart`,
+        `Added ${productName}, ${variantName} into cart`,
         {
           position: "top-right",
           autoClose: 2000,
@@ -111,29 +112,29 @@ export const ShopContextProvider = (props) => {
     return totalCount;
   };
 
-  const updateQuantity = async (itemId, size, quantity) => {
+  const updateQuantity = async (productId, variantId, quantity) => {
     let cartData = structuredClone(cartItems);
     if (quantity <= 0) {
       // Remove item completely
-      if (cartData[itemId]) {
-        delete cartData[itemId][size];
+      if (cartData[productId]) {
+        delete cartData[productId][variantId];
         // If no more variants, remove the product entirely
-        if (Object.keys(cartData[itemId]).length === 0) {
-          delete cartData[itemId];
+        if (Object.keys(cartData[productId]).length === 0) {
+          delete cartData[productId];
         }
       }
     } else {
       // Update quantity
-      if (!cartData[itemId]) {
-        cartData[itemId] = {};
+      if (!cartData[productId]) {
+        cartData[productId] = {};
       }
-      cartData[itemId][size] = quantity;
+      cartData[productId][variantId] = quantity;
     }
 
     try {
       await axios.post("http://localhost:4000/api/session/cart", {
-        productId: itemId,
-        variantId: size,
+        productId: productId,
+        variantId: variantId,
         quantity: quantity,
       });
       setCartItems(cartData);
@@ -160,6 +161,7 @@ export const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
+
   useEffect(() => {
     getProductData();
   }, []);
@@ -181,6 +183,7 @@ export const ShopContextProvider = (props) => {
         getCartCount,
         updateQuantity,
         getCartAmount,
+        navigate,
       }}
     >
       {props.children}
