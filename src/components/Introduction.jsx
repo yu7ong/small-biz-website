@@ -6,7 +6,6 @@ import art3Png from "../assets/FloatingImg3.PNG";
 import art4Png from "../assets/FloatingImg4.PNG";
 import art5Png from "../assets/FloatingImg5.PNG";
 import art6Png from "../assets/FloatingImg6.PNG";
-import banner from "../assets/Banner3.JPG";
 import "./Introduction.css";
 
 function Introduction() {
@@ -79,14 +78,6 @@ function Introduction() {
   return (
     <>
       <div className="flex flex-col">
-        {/* Banner */}
-        <div className="mt-20 md:mt-25 lg:mt-30 flex items-center">
-          <img
-            src={banner}
-            alt="banner"
-            className="w-full aspect-[6/3] md:aspect-[6/2] lg:aspect-[5/1] object-cover"
-          />
-        </div>
         {/* Title and brief description */}
         <div className="h-[45vh] bg-[#fff5fe] relative overflow-hidden">
           {/* Flying images */}

@@ -1,14 +1,11 @@
 import React from "react";
-import Hero from "../components/Hero";
 import "./Home.css";
-import Introduction from "../components/Introduction";
-import Collections from "../components/Collections";
+import Banner from "../components/Banner";
 
 function Home() {
   return (
     <>
-      <Introduction /> 
-      <Collections /> 
+      <Banner /> 
     </>
   );
 }
