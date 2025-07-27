@@ -6,6 +6,7 @@ import { useState } from "react";
 import PayNowInstructions from "../components/PayNowInstructions";
 import Confirmation from "../components/Confirmation";
 import { X, CheckCircle } from "lucide-react";
+import axios from "axios";
 
 const Toast = ({ message, type, onClose }) => {
   if (!message) return null;
@@ -77,8 +78,46 @@ const PlaceOrder = () => {
     }
   };
 
-  const handleSubmitPayment = () => {
+  const submitOrder = async () => {
+    const email = formData.email;
+    const firstName = formData.firstName;
+    const lastName = formData.lastName;
+    const collectionDate = formData.collectionDate;
+    const additionalNotes = formData.additionalNotes;
+    const paymentProofFile = paymentProof;
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("email", email);
+    formDataToSend.append("name", `${firstName} ${lastName}`);
+    formDataToSend.append("date", collectionDate);
+    formDataToSend.append("details", additionalNotes);
+    formDataToSend.append("evidenceImg", paymentProofFile);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/order/place",
+        formDataToSend,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await submitOrder();
+  };
+
+  const handleSubmitPayment = async () => {
     if (paymentProof) {
+      await submitOrder();
       setCurrentStep("confirmation");
     } else {
       showToast("Please upload proof of payment");
@@ -91,21 +130,21 @@ const PlaceOrder = () => {
 
   return (
     <div className="min-h-screen">
-      <Toast 
-        message={toast.message} 
-        type={toast.type} 
-        onClose={() => setToast({ message: '', type: '' })} 
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: "", type: "" })}
       />
-      
-      {currentStep === 'form' && (
+
+      {currentStep === "form" && (
         <OrderForm
           formData={formData}
           onInputChange={handleInputChange}
           onProceedToPayment={handleProceedToPayment}
         />
       )}
-      
-      {currentStep === 'payment' && (
+
+      {currentStep === "payment" && (
         <PayNowInstructions
           paymentProof={paymentProof}
           onFileUpload={handleFileUpload}
@@ -113,14 +152,10 @@ const PlaceOrder = () => {
           onSubmitPayment={handleSubmitPayment}
         />
       )}
-      
-      {currentStep === 'confirmation' && (
-        <Confirmation
-          formData={formData}
-        />
-      )}
+
+      {currentStep === "confirmation" && <Confirmation formData={formData} />}
     </div>
-  )
+  );
 };
 
 export default PlaceOrder;

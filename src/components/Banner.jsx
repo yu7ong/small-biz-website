@@ -81,14 +81,14 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="relative min-h-[90vh] w-full flex flex-col items-center justify-center px-1 sm:px-8 bg-[#fff5fe]">
+    <div className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[90vh] w-full flex flex-col justify-end md:justify-center items-center px-4 sm:px-8 pb-4 sm:pb-4 md:pb-0 bg-[#fff5fe]">
       {/* Top Left Image */}
       <div
         className={`absolute top-8 left-0 transition-all duration-1000 ${
           isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}
       >
-        <div className="w-60 sm:w-80 md:w-120 h-auto flex items-center justify-center">
+        <div className="w-60 sm:w-80 md:w-80 lg:w-120 h-auto flex items-center justify-center">
           <img src={BannerImg2} alt="Banner Image 1" />
         </div>
       </div>
@@ -100,16 +100,16 @@ const Banner = () => {
         }`}
         style={isLoaded ? { animation: "bounce 0.6s ease-in-out" } : {}}
       >
-        <div className="w-45 sm:w-65 md:w-85 h-auto flex items-center justify-center">
+        <div className="w-45 sm:w-65 md:w-65 lg:w-85 h-auto flex items-center justify-center">
           <img src={BannerImg1} alt="Banner Image 2" />
         </div>
       </div>
 
       {/* Main Content - Centered Text Stack */}
-      <div className="flex flex-col items-center justify-center pt-6 sm:pt-10 space-y-1 max-w-md mx-auto">
+      <div className="flex flex-col items-center justify-end md:justify-end lg:justify-center pt-6 sm:pt-10 space-y-1 max-w-md mx-auto w-full mb-4 sm:mb-8 md:mb-0">
         {/* First Font Image */}
         <div
-          className={`flex flex-wrap justify-center w-16 sm:w-20 md:w-24 lg:w-32 h-auto items-center gap-0.5 sm:gap-1 transition-all duration-1000 ${
+          className={`flex flex-wrap justify-center w-16 sm:w-20 md:w-24 lg:w-28 xl:w-40 h-auto items-center gap-0.5 sm:gap-1 transition-all duration-1000 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -118,7 +118,7 @@ const Banner = () => {
 
         {/* Second Font Image */}
         <div
-          className={`flex flex-wrap justify-center w-40 sm:w-48 md:w-64 lg:w-72 xl:w-80 h-auto items-center transition-all duration-1000 delay-200 ${
+          className={`flex flex-wrap justify-center w-40 sm:w-48 md:w-64 lg:w-68 xl:w-80 h-auto items-center transition-all duration-1000 delay-200 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >

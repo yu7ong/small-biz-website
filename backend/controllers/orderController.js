@@ -25,6 +25,8 @@ const placeOrder = async (req, res) => {
 
     //Validate products and variants
     const { validatedItems, totalAmount } = await validateCart(req, dbSession)
+
+    //Save order to database function to be implemented later
     const orderId = 'orderId50802072025'
 
     const emailData = {
