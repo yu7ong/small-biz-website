@@ -81,12 +81,12 @@ npm install
 ```
 
 ## Setup Environment Variables
-Copy the .env.example file inside the backend folder and rename it to .env. Then, fill in the required values.
-
-## Services to set up
-Sign up/sign in to these services and get the API keys
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
-- [Cloudinary](https://cloudinary.com/)
+Copy the .env.example file inside the backend folder and rename it to .env. Then, fill in the required values. 
+- Sign up/sign in to these services and get the API keys
+    -  [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+    -  [Cloudinary](https://cloudinary.com/)
+- Input your own session secret key.
+- Environment keep to "development"
 
 ## Running the app 
 You need to run both the frontend and the backend in separate terminals:
